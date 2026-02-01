@@ -1,4 +1,4 @@
-# Academy Management System
+# Institute/Academy Management System
 
 A comprehensive web-based application for managing an institute's operations, built with PHP, MySQL, and Bootstrap.
 

@@ -4,7 +4,7 @@ require_once __DIR__ . '/../layout/header.php';
 require_once __DIR__ . '/../layout/sidebar.php';
 define('BASE_URL', '/academy_system02/');
 
-// Get PDO connection from your Database class
+// connection from your Database class
 $db = new Database();
 $conn = $db->conn;
 
@@ -13,7 +13,7 @@ $conn = $db->conn;
     <div class="row">
         <div class="col bg-white p-4 border rounded m-4">
 
-            <!-- Report Form -->
+            <!-- report Form -->
             <form method="POST" action="">
                 <div class="form-group mb-3">
                     <label for="reportType">Select Report Type:</label>
@@ -41,7 +41,8 @@ $conn = $db->conn;
             </form>
 
             <?php
-            // Handle form submission
+
+            // form submission
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $reportType = $_POST['reportType'];
                 $fromDate   = $_POST['fromDate'];
@@ -49,7 +50,7 @@ $conn = $db->conn;
 
                 switch ($reportType) {
                     case 'students':
-                        // All students, no date filter as it's "All Students"
+                        //get all students database
                         $sql = "SELECT student_id, student_name, phone, address 
                                 FROM students";
                         $stmt = $conn->prepare($sql);
@@ -85,7 +86,7 @@ $conn = $db->conn;
                         break;
 
                     case 'courses':
-                        // All courses, no date filter
+                        // all courses
                         $sql = "SELECT course_id, course_name, course_duration, course_fee 
                                 FROM courses";
                         $stmt = $conn->prepare($sql);
@@ -122,7 +123,7 @@ $conn = $db->conn;
                         break;
                 }
 
-                // Add print and cancel buttons
+                
                 echo '<div class="mt-4 d-flex justify-content-end">';
                 echo '<button class="btn btn-primary me-2" onclick="window.print()">Print Report</button>';
                 echo '<button class="btn btn-secondary" onclick="location.reload()">Cancel</button>';

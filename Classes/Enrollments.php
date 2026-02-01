@@ -9,21 +9,24 @@ class Enrollments {
         $this->conn = $db->conn;
     }
 
-    // Enroll student in a course
+    // enroll student in a course
     public function enrollStudent($student_id, $course_id, $enrollment_status = 'Active') {
-    // Check duplicate
+    
+    // check duplicate
+    
     $check = $this->conn->prepare("
         SELECT enrollment_id 
         FROM enrollments 
         WHERE student_id = :sid AND course_id = :cid
     ");
+    
     $check->execute([':sid' => $student_id, ':cid' => $course_id]);
 
     if ($check->rowCount() > 0) {
         return ['success' => false, 'message' => '⚠ Already enrolled in this course'];
     }
 
-    // Corrected INSERT query
+    // rnroll student
     $stmt = $this->conn->prepare("
         INSERT INTO enrollments (student_id, course_id, enrollment_status) 
         VALUES (:sid, :cid, :enrollment_status)
@@ -37,13 +40,13 @@ class Enrollments {
     return ['success' => true, 'message' => '✅ Enrollment successful'];
 }
 
-    // Get all courses for dropdown
+    // get all courses dropdown
     public function getAllCourses() {
         $stmt = $this->conn->query("SELECT course_id, course_name FROM courses ORDER BY course_name ASC");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Get student enrollments
+    // get student enrollments
     public function getEnrollmentsByStudent($student_id) {
     $stmt = $this->conn->prepare("
         SELECT e.enrollment_id, e.enrollment_status, e.enrollment_date,
@@ -56,7 +59,7 @@ class Enrollments {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-  // Get All enrollments
+  // get All enrollments
     public function getTotalEnrollments() {
     $sql = "SELECT COUNT(enrollment_id) FROM enrollments";
     $stmt = $this->conn->prepare($sql);
@@ -64,7 +67,7 @@ class Enrollments {
     return $stmt->fetchColumn();
 }
 
-// Update enrollment status
+// update enrollment status
 public function updateEnrollmentStatus($enrollment_id, $new_status) {
     $stmt = $this->conn->prepare("
         UPDATE enrollments 

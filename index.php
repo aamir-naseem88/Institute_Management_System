@@ -7,17 +7,17 @@ require_once __DIR__ . '/Classes/Students.php';
 require_once __DIR__ . '/Classes/Enrollments.php';
 require_once __DIR__ . '/Classes/Fees.php';
 
-// Create DB connection
+// db connection
 $db = new Database();
 $conn = $db->conn;
 
-// Dashboard counts
+// dashboard counts
 
-// Active enrollments
+// active enrollments
 $stmtActive = $conn->query("SELECT COUNT(*) AS active_enrollments FROM enrollments WHERE enrollment_status = 'Active'");
 $active_enrollments = $stmtActive->fetch()['active_enrollments'];
 
-// Total fee receivable
+// total fee receivable
 $stmtReceivable = $conn->query("
     SELECT SUM(c.course_fee) AS total_fee_receivable
     FROM courses c
@@ -25,26 +25,25 @@ $stmtReceivable = $conn->query("
     WHERE c.course_id = e.course_id
 ");
 
-// Fetch the result safely
 $row = $stmtReceivable->fetch(PDO::FETCH_ASSOC);
 $total_fee_receivable = $row['total_fee_receivable'] ?? 0;
 
-// Total fee received (sum of all payments)
+// fee received
 $stmtReceived = $conn->query("SELECT SUM(amount_paid) AS total_fee_received FROM fees");
 $total_fee_received = $stmtReceived->fetch()['total_fee_received'] ?? 0;
 
-// Pending fee (receivable - received)
+// pending fee
 $pending_fee = $total_fee_receivable - $total_fee_received;
 
 ?>
 
 <div class="main-content bg-light">
 
-<!-- Dashboard counts -->
+<!-- dashboard counts -->
 
 <div class="row g-3 mb-4">
 
-  <!-- Active Enrollments -->
+  <!-- active enrollments -->
   <div class="col-md-3">
     <div class="card shadow rounded border-0">
       <div class="card-body text-center">
@@ -58,7 +57,7 @@ $pending_fee = $total_fee_receivable - $total_fee_received;
     </div>
   </div>
 
-  <!-- Total Fee Receivable -->
+  <!-- fee receivable -->
    <div class="col-md-3">
     <div class="card shadow rounded border-0">
       <div class="card-body text-center">
@@ -72,7 +71,7 @@ $pending_fee = $total_fee_receivable - $total_fee_received;
     </div>
   </div>
 
-  <!-- Total Fee Received -->
+  <!-- total fee received -->
   <div class="col-md-3">
     <div class="card shadow rounded border-0">
       <div class="card-body text-center">
@@ -100,12 +99,12 @@ $pending_fee = $total_fee_receivable - $total_fee_received;
     </div>
   </div>
 
-  <!-- Students Table -->
+  <!-- students table -->
   <div class="card">
     <div class="card-body">
       <h5 class="mb-3">Students</h5>
 
-      <!-- Search Form -->
+      <!-- search form -->
        <div class="row">
         <div class="col-12 col-md-6 search">
 
@@ -124,7 +123,7 @@ $pending_fee = $total_fee_receivable - $total_fee_received;
        </div>
         <hr>
 <?php
-// --- SERVER-SIDE VALIDATION ---
+// --- SERVER SIDE VALIDATION ---
 $searchError = "";
 $students = [];
 
@@ -134,13 +133,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search'])) {
     if ($search === "") {
         $searchError = "Search term cannot be empty.";
     } elseif (ctype_digit($search)) {
-        // Numeric ID search
+        // id search
         $stmt = $conn->prepare("SELECT * FROM students WHERE student_id = :id");
         $stmt->bindParam(':id', $search, PDO::PARAM_INT);
         $stmt->execute();
         $students = $stmt->fetchAll();
     } elseif (preg_match("/^[a-zA-Z\s]+$/", $search)) {
-        // Name search
+        // name search
         $stmt = $conn->prepare("SELECT * FROM students WHERE student_name LIKE :name");
         $stmt->bindValue(':name', "%$search%");
         $stmt->execute();
@@ -151,10 +150,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['search'])) {
 }
 ?>
 
-<!-- Search Form -->
+<!-- search form -->
 <div class="row">
   <div class="col-12 col-md-6 search">
-    <!-- Server-side error message -->
+    <!-- validatation -->
     <?php if (!empty($searchError)): ?>
       <div class="alert alert-danger mt-2"><?= htmlspecialchars($searchError) ?></div>
     <?php endif; ?>
@@ -199,7 +198,7 @@ function validateSearch() {
           </thead>
           <tbody>
 <?php
-// Search logic with PDO
+// search
 if (isset($_GET['search']) && !empty($_GET['search'])) {
     $search = $_GET['search'];
     if (is_numeric($search)) {
@@ -216,7 +215,6 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
     $students = $studentsObj->displayStudents();
 }
 
-// Display rows
 foreach ($students as $student) {
     echo "<tr>
         <td>{$student['student_id']}</td>

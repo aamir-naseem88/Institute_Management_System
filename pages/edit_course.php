@@ -3,7 +3,7 @@ require_once __DIR__ . '/../layout/header.php';
 require_once __DIR__ . '/../layout/sidebar.php';
 require_once __DIR__ . '/../Classes/Courses.php';
 
-// Get id from URL
+// gat id from URL
 if (!isset($_GET['course_id']) || empty($_GET['course_id'])) {
     die("Course not found!");
 }

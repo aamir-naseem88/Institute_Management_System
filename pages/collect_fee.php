@@ -9,19 +9,19 @@ $conn = $db->conn;
 $feeObj = new Fees();
 $enrollObj = new Enrollments();
 
-// Get student_id from URL
+// get student_id from URL
 $student_id = $_GET['student_id'] ?? null;
 if (!$student_id) die("Student not found");
 
-// Fetch student info
+// fetch student info
 $stmt = $conn->prepare("SELECT * FROM students WHERE student_id = :sid");
 $stmt->execute([':sid' => $student_id]);
 $student = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Fetch enrolled courses for dropdown
+// fetch enrolled courses for dropdown
 $enrolledCourses = $enrollObj->getEnrollmentsByStudent($student_id);
 
-// Handle form submission
+// form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $enrollment_id = $_POST['enrollment_id'] ?? null;
     $amount_paid   = $_POST['amount_paid'] ?? null;
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </select>
         </div>
 
-        <!-- Dynamic course name display -->
+        <!-- course name dropdown -->
         <div class="mb-3" id="selectedCourseBox" style="display:none;">
           <p><strong>Selected Course:</strong> <span id="selectedCourseName"></span></p>
         </div>

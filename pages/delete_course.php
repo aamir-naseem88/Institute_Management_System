@@ -6,19 +6,19 @@ define('BASE_URL', '/academy_system02/');
 
 $courseObj = new Courses();
 
-// Step 1: Get course ID from URL
+// get course ID from URL
 if (!isset($_GET['course_id']) || empty($_GET['course_id'])) {
     die("No course ID provided.");
 }
 $course_id = (int) $_GET['course_id'];
 
-// Step 2: Fetch course details
+// fetch course details
 $course = $courseObj->viewSingleCourse($course_id);
 if (!$course) {
     die("Course not found.");
 }
 
-// Step 3: Handle deletion
+// deletion
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $deleted = $courseObj->deleteCourse($course_id);
 

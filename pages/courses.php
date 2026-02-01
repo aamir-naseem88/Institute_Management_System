@@ -6,7 +6,7 @@ require_once __DIR__ . '/../Classes/Courses.php';
 
 <div class="main-content"> 
 
-  <!-- Courses Table -->
+  <!-- courses table -->
 <div class="card">
     <div class="card-body">
        <div class="row">
@@ -33,11 +33,11 @@ require_once __DIR__ . '/../Classes/Courses.php';
           <tbody>
 <?php
 
-// Display courses
+// display courses
 $courseObj = new Courses();
 $courses = $courseObj->viewAllCourses();
 
-// Display rows
+// display rows
 foreach ($courses as $course) {
     echo "<tr>
         <td>{$course['course_id']}</td>

@@ -7,7 +7,7 @@ $studentsObj = new Students();
 
 $errors = [];
 
-// Step 1: Handle form submission
+// form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $student_name  = trim($_POST['student_name']);
     $father_name   = trim($_POST['father_name']);
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $phone         = trim($_POST['phone']);
     $address       = trim($_POST['address']);
 
-    // --- SERVER-SIDE VALIDATION ---
+    // --- servr side validatin ---
     if (!preg_match("/^[a-zA-Z\s]+$/", $student_name)) {
         $errors[] = "Student name must contain only letters and spaces.";
     }
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <div class="container mt-0 rounded border bg-white p-4">
     <h3>Add Student</h3>
 
-    <!-- Show server-side errors -->
+    <!-- server side errors -->
     <?php if (!empty($errors)): ?>
       <div class="alert alert-danger">
         <ul>
@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 
 <script>
-// --- CLIENT-SIDE VALIDATION ---
+// --- validation ---
 function validateForm() {
     const name = document.getElementById('student_name').value.trim();
     const father = document.getElementById('father_name').value.trim();

@@ -6,20 +6,20 @@ define('BASE_URL', '/academy_system02/');
 
 $studentsObj = new Students();
 
-// Step 1: Get student ID from URL
+// student ID from URL
 if (!isset($_GET['student_id']) || empty($_GET['student_id'])) {
     die("No student ID provided.");
 }
 
 $student_id = (int) $_GET['student_id'];
 
-// Step 2: Fetch student details
+// student datails
 $student = $studentsObj->getStudentById($student_id);
 if (!$student) {
     die("Student not found.");
 }
 
-// Step 3: Handle form submission
+// form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $student_name  = $_POST['student_name'];
     $father_name   = $_POST['father_name'];

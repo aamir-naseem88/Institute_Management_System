@@ -9,16 +9,16 @@ $conn = $db->conn;
 $enrollObj = new Enrollments();
 $feeObj = new Fees();
 
-// Get student_id from URL
+// student_id from URL
 $student_id = $_GET['student_id'] ?? null;
 if (!$student_id) die("Student not found");
 
-// Fetch student info
+// details
 $stmt = $conn->prepare("SELECT * FROM students WHERE student_id = :sid");
 $stmt->execute([':sid' => $student_id]);
 $student = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Fetch enrolled courses with course_id and course_fee
+// enrolled courses with course_id and course_fee
 $enrolledCourses = $enrollObj->getEnrollmentsByStudent($student_id);
 ?>
 
@@ -32,7 +32,7 @@ $enrolledCourses = $enrollObj->getEnrollmentsByStudent($student_id);
     </div>
     <div class="card-body">
 
-      <!-- Personal Information -->
+      <!-- personal information -->
       <h5>1. Personal Information</h5>
       <table class="table table-bordered">
         <tr><th>ID</th><td><?= htmlspecialchars($student['student_id']); ?></td></tr>
@@ -44,7 +44,7 @@ $enrolledCourses = $enrollObj->getEnrollmentsByStudent($student_id);
         <tr><th>Address</th><td><?= htmlspecialchars($student['address']); ?></td></tr>
       </table>
 
-      <!-- Enrolled Courses -->
+      <!-- enrolled courses -->
       <h5 class="mt-4">2. Enrolled Courses</h5>
       <table class="table table-bordered">
         <thead>
@@ -75,7 +75,7 @@ $enrolledCourses = $enrollObj->getEnrollmentsByStudent($student_id);
         </tbody>
       </table>
 
-      <!-- Fee Records -->
+      <!-- fee records -->
       <h5 class="mt-4">3. Fee Records (Course‑wise)</h5>
       <?php if ($enrolledCourses): ?>
         <?php foreach ($enrolledCourses as $course): ?>
@@ -130,10 +130,9 @@ $enrolledCourses = $enrollObj->getEnrollmentsByStudent($student_id);
         <p>No fee records available.</p>
       <?php endif; ?>
       <div class="bg-white border p-2 text-center">
-  <!-- Print button -->
+  
   <button class="btn btn-primary" onclick="window.print()">Print Report</button>
 
-  <!-- Cancel button -->
   <button class="btn btn-secondary mx-2" onclick="window.location.href='/academy_system02/index.php'">
     Cancel
   </button>

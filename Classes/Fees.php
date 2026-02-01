@@ -9,7 +9,7 @@ class Fees {
         $this->conn = $db->conn;
     }
 
-    // Add a fee payment
+    // add a fee payment
     public function addFee($enrollment_id, $amount_paid, $notes = null) {
         $stmt = $this->conn->prepare("
             INSERT INTO fees (enrollment_id, amount_paid, payment_date, notes) 
@@ -22,7 +22,7 @@ class Fees {
         ]);
     }
 
-    // Get all fees for a student (via enrollments)
+    // get all fees for a student (via enrollments)
     public function getFeesByStudent($student_id) {
         $stmt = $this->conn->prepare("
             SELECT f.fee_id, f.amount_paid, f.payment_date, f.notes,
@@ -37,7 +37,7 @@ class Fees {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Get fees by enrollment (specific course enrollment)
+    // get fees by enrollment (specific course enrollment)
     public function getFeesByEnrollment($enrollment_id) {
         $stmt = $this->conn->prepare("
             SELECT fee_id, amount_paid, payment_date, notes

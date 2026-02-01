@@ -10,7 +10,7 @@ if (isset($_POST['add_course'])) {
     $course_duration = trim($_POST['course_duration']);
     $course_fee      = trim($_POST['course_fee']);
 
-    // --- SERVER-SIDE VALIDATION ---
+    // ---server sidw validation---
     if (!preg_match("/^[a-zA-Z0-9\s]+$/", $course_name)) {
         $errors[] = "Course name must contain only letters, numbers, and spaces.";
     }
@@ -38,7 +38,7 @@ if (isset($_POST['add_course'])) {
   <div class="container mt-0 rounded border bg-white p-4">
     <h3>Add Course</h3>
 
-    <!-- Show server-side errors -->
+    <!-- server-side errors -->
     <?php if (!empty($errors)): ?>
       <div class="alert alert-danger">
         <ul>
@@ -72,7 +72,7 @@ if (isset($_POST['add_course'])) {
 </div>
 
 <script>
-// --- CLIENT-SIDE VALIDATION ---
+// --- client side validation ---
 function validateCourseForm() {
     const name = document.getElementById('course_name').value.trim();
     const duration = document.getElementById('course_duration').value.trim();

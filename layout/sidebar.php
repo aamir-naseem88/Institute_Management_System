@@ -1,10 +1,10 @@
-<!-- Mobile Navbar -->
+<!-- mobile Navbar -->
 <nav class="navbar bg-white d-md-none px-3 border-bottom">
   <button class="btn btn-outline-secondary" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">☰</button>
   <span class="navbar-brand ms-2 fs-small">Al-Rehman IT Institute</span>
 </nav>
 
-<!-- Mobile Sidebar -->
+<!-- mobile Sidebar -->
 <div class="offcanvas offcanvas-start text-bg-dark" id="mobileSidebar">
   <div class="offcanvas-header">
     <h6>Al-Rehman IT Institute</h6>
@@ -24,7 +24,7 @@
   </div>
 </div>
 
-<!-- Desktop Sidebar -->
+<!-- desktop sidebar -->
 <aside class="sidebar">
   <div class="d-flex flex-column align-items-center">
     <img src="/academy_system02/assets/img/logo.png" alt="Al-Rehman IT Institute Logo" style="width: 160px; height: auto; margin-bottom: -48px;"/>

@@ -6,19 +6,19 @@ define('BASE_URL', '/academy_system02/');
 
 $studentsObj = new Students();
 
-// Step 1: Get student ID from URL
+// get student ID from URL
 if (!isset($_GET['student_id']) || empty($_GET['student_id'])) {
     die("No student ID provided.");
 }
 $student_id = (int) $_GET['student_id'];
 
-// Step 2: Fetch student details
+// fetch student details
 $student = $studentsObj->getStudentById($student_id);
 if (!$student) {
     die("Student not found.");
 }
 
-// Step 3: Handle deletion
+// deletion
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $deleted = $studentsObj->deleteStudent($student_id);
 

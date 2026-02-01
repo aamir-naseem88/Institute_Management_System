@@ -10,7 +10,7 @@ class Students {
         $this->conn = $db->conn;
     }
 
-    // READ: Fetch all students
+    // view all students
     public function displayStudents() {
         try {
             $sql = "SELECT * FROM students ORDER BY student_id DESC";
@@ -23,21 +23,21 @@ class Students {
         }
     }
 
-    // READ: Fetch single student by ID
+    // view single student by ID
     public function getStudentById($id) {
         try {
             $sql = "SELECT * FROM students WHERE student_id = :id";
             $stmt = $this->conn->prepare($sql);
             $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
-            return $stmt->fetch(); // single row
+            return $stmt->fetch();
         } catch (PDOException $err) {
             echo 'Failed to fetch student. ' . $err->getMessage();
             return null;
         }
     }
 
-    // CREATE: Add new student
+    // add new student
     public function addStudent($student_name, $father_name, $gender, $date_of_birth, $phone, $address) {
         try {
             $sql = "INSERT INTO students (student_name, father_name, gender, date_of_birth, phone, address)
@@ -56,7 +56,7 @@ class Students {
         }
     }
 
-    // UPDATE: Edit student details
+    // edit student details
     public function updateStudent($id, $student_name, $father_name, $gender, $date_of_birth, $phone, $address) {
         try {
             $sql = "UPDATE students 
@@ -78,7 +78,7 @@ class Students {
         }
     }
 
-    // DELETE: Remove student
+    // remove student
     public function deleteStudent($id) {
         try {
             $sql = "DELETE FROM students WHERE student_id = :id";

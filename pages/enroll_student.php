@@ -10,19 +10,19 @@ $db = new Database();
 $conn = $db->conn;
 $enrollObj = new Enrollments();
 
-// Get student_id from URL
+// student_id from URL
 $student_id = $_GET['student_id'] ?? null;
 if (!$student_id) die("Student not found");
 
-// Fetch student info
+// student datails
 $stmt = $conn->prepare("SELECT * FROM students WHERE student_id = :sid");
 $stmt->execute([':sid' => $student_id]);
 $student = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Fetch all courses
+// all courses
 $courses = $enrollObj->getAllCourses();
 
-// Handle new enrollment
+// new enrollment
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['course_id'])) {
     $course_id = $_POST['course_id'] ?? null;
     $status    = $_POST['enrollment_status'] ?? 'Active';
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['course_id'])) {
     }
 }
 
-// Handle status update
+// status update
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_enrollment_id'])) {
     $enrollment_id = $_POST['update_enrollment_id'];
     $new_status    = $_POST['new_status'];
@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_enrollment_id'
       <p><strong>Name:</strong> <?= htmlspecialchars($student['student_name']); ?></p>
       <p><strong>Phone:</strong> <?= htmlspecialchars($student['phone']); ?></p>
 
-      <!-- Enrollment Form -->
+      <!-- enrollment Form -->
       <form method="POST">
         <div class="mb-3">
           <label for="course_id" class="form-label">Select Course</label>

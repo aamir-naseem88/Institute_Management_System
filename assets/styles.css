@@ -16,17 +16,21 @@
   background-color: #3A5FDD !important;
   border-color: #3A5FDD !important;
 }
+
 .btn-secondary {
   background-color: #A1B5FF !important;
   border-color: #A1B5FF !important;
 }
+
 .btn-secondary:hover {
   background-color: #8B9EFF !important;
   border-color: #8B9EFF !important;
 }
+
 .text-primary {
   color: #4F74F6 !important;
 }
+
 .border-primary {
   border-color: #4F74F6 !important;
 }
@@ -70,15 +74,6 @@ body {
 .main-content {
   margin-left: 240px;
   padding: 24px;
-}
-
-.custom-alert {
-  margin-left: 240px;
-  margin-top: 20px;
-  margin-right: 20px;
-  margin-bottom: 20px;
-  max-width: calc(100% - 260px);
-  z-index: 100;
 }
 
 /* Mobile */
